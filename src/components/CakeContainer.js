@@ -19,6 +19,8 @@ function CakeContainer({fetchCakes,cakeData}){
                     <h2>Cake Name:{cake.name}</h2>
                     <h3>Cake Flavour:{cake.flavor}</h3>
                     <h5>Price:{cake.price}</h5>
+                    <button>Delete</button>&nbsp;
+                    <button>Edit</button>
                 </div>
             })
             }

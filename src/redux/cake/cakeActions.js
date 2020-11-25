@@ -24,7 +24,7 @@ export const fetchCakesFailure = (error) => {
 export const fetchCakes = () => {
     return (dispatch) => {
         dispatch(fetchCakesRequest)
-        Axios.get('https://crudcrud.com/api/8e341c5a2bd34221bc869793f7ecf756/cake')
+        Axios.get('https://crudcrud.com/api/3f513b1def5440cea605bba7d050f7d9/cakes')
         .then(res=>{
             const cakes = res.data
             console.log(cakes)
