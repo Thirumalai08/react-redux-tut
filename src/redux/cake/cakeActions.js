@@ -1,5 +1,7 @@
 import Axios from 'axios'
-import {FETCH_CAKES_REQUEST,FETCH_CAKES_SUCCESS,FETCH_CAKES_FAILURE} from './cakeTypes'
+import {FETCH_CAKES_REQUEST,FETCH_CAKES_SUCCESS,FETCH_CAKES_FAILURE, DELETE_CAKES} from './cakeTypes'
+
+const URL = 'https://crudcrud.com/api/574f3830664541319380e22106c25dfe/cakes'
 
 export const fetchCakesRequest = () => {
     return {
@@ -21,10 +23,17 @@ export const fetchCakesFailure = (error) => {
     }
 }
 
+export const deleteCakesSuccess = (cake) => {  
+    return {
+        type:DELETE_CAKES,
+        payload: cake._id
+    }
+}
+
 export const fetchCakes = () => {
     return (dispatch) => {
         dispatch(fetchCakesRequest)
-        Axios.get('https://crudcrud.com/api/3f513b1def5440cea605bba7d050f7d9/cakes')
+        Axios.get(`${URL}`)
         .then(res=>{
             const cakes = res.data
             console.log(cakes)
@@ -33,6 +42,19 @@ export const fetchCakes = () => {
         .catch(err=>{
             const errorMsg = err.message
             dispatch(fetchCakesFailure(errorMsg))
+        })
+    }
+}
+
+export const deleteCakes = (cake) => { 
+    return (dispatch) => {
+        Axios.delete(`${URL}/${cake._id}`) 
+        .then(res=>{
+            console.log(res.data)
+            dispatch(deleteCakesSuccess(cake))
+        })
+        .catch(err=>{
+            console.log(err)
         })
     }
 }

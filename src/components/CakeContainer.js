@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import {fetchCakes} from '../redux'
+import {fetchCakes,deleteCakes} from '../redux'
 
-function CakeContainer({fetchCakes,cakeData}){
+function CakeContainer({fetchCakes,deleteCakes,cakeData}){
     useEffect(()=>{
         fetchCakes()
     },[])
+    /*const onDelete = (id) => {
+        deleteCakes(id)
+        console.log(id)
+    }*/
     return cakeData.loading ? (
     <h2>Loading...</h2>
     ) : cakeData.error ? (
@@ -19,7 +23,9 @@ function CakeContainer({fetchCakes,cakeData}){
                     <h2>Cake Name:{cake.name}</h2>
                     <h3>Cake Flavour:{cake.flavor}</h3>
                     <h5>Price:{cake.price}</h5>
-                    <button>Delete</button>&nbsp;
+                    <button
+                    onClick={()=>deleteCakes(cake)}
+                    >Delete</button>&nbsp;
                     <button>Edit</button>
                 </div>
             })
@@ -35,7 +41,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchCakes: ()=>dispatch(fetchCakes())
+        fetchCakes: ()=>dispatch(fetchCakes()),
+        deleteCakes: (cake)=>dispatch(deleteCakes(cake))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CakeContainer)

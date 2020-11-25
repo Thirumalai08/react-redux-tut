@@ -1,4 +1,4 @@
-import {FETCH_ICECREAMS_REQUEST,FETCH_ICECREAMS_SUCCESS,FETCH_ICECREAMS_FAILURE} from './icecreamTypes'
+import {FETCH_ICECREAMS_REQUEST,FETCH_ICECREAMS_SUCCESS,FETCH_ICECREAMS_FAILURE,DELETE_ICECREAMS} from './icecreamTypes'
 
 const initialState = {
     loading: false,
@@ -24,6 +24,11 @@ const icecreamReducer = (state=initialState,action) => {
                 loading: false,
                 icecreams: [],
                 error: action.payload
+            }
+        case DELETE_ICECREAMS:
+            return {
+                ...state, 
+                icecreams: state.icecreams.filter((icecream) => icecream._id !== action.payload)
             }
         default: return state
     }

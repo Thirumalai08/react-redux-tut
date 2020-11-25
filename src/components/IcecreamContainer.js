@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
-import {fetchIcecreams} from '../redux'
+import {deleteIcecreams, fetchIcecreams} from '../redux'
 
-function IcecreamContainer({fetchIcecreams,icecreamData}){
+function IcecreamContainer({fetchIcecreams,deleteIcecreams,icecreamData}){
     useEffect(()=>{
         fetchIcecreams()
     },[])
@@ -19,7 +19,9 @@ function IcecreamContainer({fetchIcecreams,icecreamData}){
                     <h2>Icecream Name:{icecream.name}</h2>
                     <h3>Icecream Flavour:{icecream.flavor}</h3>
                     <h5>Price:{icecream.price}</h5>
-                    <button>Delete</button>&nbsp;
+                    <button
+                    onClick={()=>deleteIcecreams(icecream)}
+                    >Delete</button>&nbsp;
                     <button>Edit</button>
                 </div>
             })
@@ -34,7 +36,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchIcecreams: ()=>dispatch(fetchIcecreams())
+        fetchIcecreams: ()=>dispatch(fetchIcecreams()),
+        deleteIcecreams: (icecream)=>dispatch(deleteIcecreams(icecream))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(IcecreamContainer)
