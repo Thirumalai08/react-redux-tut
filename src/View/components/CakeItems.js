@@ -6,7 +6,7 @@ import {fetchCakes,deleteCakes} from '../redux'
 function CakeItems({fetchCakes,cakeData,deleteCakes}){
     useEffect(()=>{
         fetchCakes()
-    },[])
+    },[fetchCakes])
     /*const onDelete = (id) => {
         deleteCakes(id)
         console.log(id)
