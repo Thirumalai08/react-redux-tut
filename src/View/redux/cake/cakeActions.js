@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { ADD_CAKES_FAILURE, ADD_CAKES_REQUEST, ADD_CAKES_SUCCESS, FETCH_CAKES_FAILURE, FETCH_CAKES_REQUEST, FETCH_CAKES_SUCCESS } from './cakeTypes'
+import { ADD_CAKES_FAILURE, ADD_CAKES_REQUEST, ADD_CAKES_SUCCESS, DELETE_CAKES_SUCCESS, FETCH_CAKES_FAILURE, FETCH_CAKES_REQUEST, FETCH_CAKES_SUCCESS } from './cakeTypes'
 
 const URL = 'https://crudcrud.com/api/bafcb66c121e43aa997c625c96284719/cakes'
 
@@ -24,9 +24,9 @@ export const fetchCakesFailure = (error) => {
 }
 
 export const fetchCakes = () => {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch(fetchCakesRequest())
-        Axios.get(`${URL}`)
+        await Axios.get(`${URL}`)
         .then(res=>{
             const cakes = res.data
             console.log(cakes)
@@ -39,19 +39,25 @@ export const fetchCakes = () => {
     }
 }
 
-/*export const fetchCakes = () => {
-    return async(dispatch) => {
-        dispatch(fetchCakesRequest)
-        try {
-            const { cakes } = await Axios.get(`${URL}`)
-            dispatch(fetchCakesSuccess(cakes))
-        }
-        catch(err){
-            const errorMsg = err.message
-            dispatch(fetchCakesFailure(errorMsg))
-        }
+export const deleteCakesSuccess = (cake) => {
+    return {
+        type: DELETE_CAKES_SUCCESS,
+        payload: cake._id
     }
-}*/
+}
+
+export const deleteCakes = (cake) => {
+    return async(dispatch) => {
+        await Axios.delete(`${URL}/${cake._id}`)
+        .then(res=>{
+            console.log(res.data)
+            dispatch(deleteCakesSuccess(cake))
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+}
 
 export const addNewCakes = (name,price,flavor) => async(dispatch) => {
     dispatch({

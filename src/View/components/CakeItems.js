@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {fetchCakes} from '../redux'
+import {fetchCakes,deleteCakes} from '../redux'
 
-function CakeItems({fetchCakes,cakeData}){
+function CakeItems({fetchCakes,cakeData,deleteCakes}){
     useEffect(()=>{
         fetchCakes()
     },[])
@@ -26,7 +26,7 @@ function CakeItems({fetchCakes,cakeData}){
                     <h3>Cake Flavour:{cake.flavor}</h3>
                     <h5>Price:{cake.price}</h5>
                     <button
-                    //onClick={()=>deleteCakes(cake)}
+                    onClick={()=>deleteCakes(cake)}
                     >Delete</button>&nbsp;
                     <button>Edit</button>
                 </div>
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchCakes: ()=>dispatch(fetchCakes()),
-       // deleteCakes: (cake)=>dispatch(deleteCakes(cake))
+        deleteCakes: (cake)=>dispatch(deleteCakes(cake))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CakeItems)

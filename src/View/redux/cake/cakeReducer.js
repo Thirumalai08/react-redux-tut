@@ -1,4 +1,4 @@
-import {ADD_CAKES_FAILURE, ADD_CAKES_REQUEST, ADD_CAKES_SUCCESS, FETCH_CAKES_FAILURE, FETCH_CAKES_REQUEST, FETCH_CAKES_SUCCESS} from './cakeTypes'
+import {ADD_CAKES_FAILURE, ADD_CAKES_REQUEST, ADD_CAKES_SUCCESS, DELETE_CAKES_SUCCESS, FETCH_CAKES_FAILURE, FETCH_CAKES_REQUEST, FETCH_CAKES_SUCCESS} from './cakeTypes'
 
 /**/const initialState = {
     loading: false,
@@ -32,6 +32,12 @@ const cakeReducer = (state=initialState,action) => {
             return { loading:true, cakes:action.payload }
         case ADD_CAKES_FAILURE:
             return { loading:false, error:action.payload }
+
+        case DELETE_CAKES_SUCCESS:
+            return {
+                ...state,
+                cakes: state.cakes.filter((cake)=>cake._id !== action.payload)
+            }
         
         default:
             return state
