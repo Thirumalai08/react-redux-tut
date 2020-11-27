@@ -24,7 +24,7 @@ function CakeItems({fetchCakes,cakeData,deleteCakes}){
                  <div key={cake._id}>
                     <h2>Cake Name:{cake.name}</h2>
                     <h3>Cake Flavour:{cake.flavor}</h3>
-                    <h5>Price:{cake.price}</h5>
+                    <h4>Price:{cake.price}</h4>
                     <button
                     onClick={()=>deleteCakes(cake)}
                     >Delete</button>&nbsp;

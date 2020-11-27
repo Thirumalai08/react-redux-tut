@@ -59,7 +59,38 @@ export const deleteCakes = (cake) => {
     }
 }
 
-export const addNewCakes = (name,price,flavor) => async(dispatch) => {
+export const addCakesRequest = (name,price,flavor) => {
+    return {
+        type: ADD_CAKES_REQUEST,
+        payload: {name,price,flavor}
+    }
+}
+export const addCakesSuccess = (data) => {
+    return {
+        type: ADD_CAKES_SUCCESS,
+        payload: data
+    }
+}
+export const addCakesFailure = (error) => {
+    return {
+        type: ADD_CAKES_FAILURE,
+        payload: error
+    }
+}
+export const addNewCakes = (name,price,flavor) => {
+    return async(dispatch) => {
+        dispatch(addCakesRequest(name,price,flavor))
+        try {
+            const {data} = await Axios.post(`${URL}`,{name,price,flavor})
+            dispatch(addCakesSuccess(data))
+        }
+        catch(error){
+            const errorMsg = error.message
+            dispatch(addCakesFailure(errorMsg))
+        }
+    }
+}
+/*export const addNewCakes = (name,price,flavor) => async(dispatch) => {
     dispatch({
         type: ADD_CAKES_REQUEST,
         payload: {name,price,flavor}
@@ -76,4 +107,4 @@ export const addNewCakes = (name,price,flavor) => async(dispatch) => {
             payload: error.message
         })
     }
-}
+}*/
