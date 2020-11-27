@@ -1,19 +1,16 @@
-//import logo from './logo.svg';
-import { Provider } from 'react-redux';
-import './App.css';
-import CakeContainer from './components/CakeContainer'
-import IceCreamContainer from './components/IcecreamContainer'
-import store from './redux/store';
+import React from 'react'
+import { Provider } from 'react-redux'
+import Main from './View/Main'
+import store from './View/redux/store'
 
-function App() {
-  return (
-    <Provider store={store}>
-      <div style={{display:"flex",justifyContent:"space-evenly"}}>
-        <CakeContainer />
-        <IceCreamContainer />
-      </div>
-    </Provider>
-  );
+function App(){
+    return(
+        <div>
+            <Provider store={store}>
+            Hello World
+            <Main />
+            </Provider>
+        </div>
+    )
 }
-
-export default App;
+export default App

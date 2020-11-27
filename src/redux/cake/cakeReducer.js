@@ -1,4 +1,4 @@
-const { FETCH_CAKES_REQUEST, FETCH_CAKES_FAILURE, FETCH_CAKES_SUCCESS, DELETE_CAKES } = require("./cakeTypes")
+const { FETCH_CAKES_REQUEST, FETCH_CAKES_FAILURE, FETCH_CAKES_SUCCESS, DELETE_CAKES, ADD_CAKES, ADD_CAKES_REQUEST, ADD_CAKES_SUCCESS, ADD_CAKES_FAILURE } = require("./cakeTypes")
 
 const initialState = {
     loading: false,
@@ -30,7 +30,20 @@ const cakeReducer = (state=initialState,action) => {
                 ...state, 
                 cakes: state.cakes.filter((cake) => cake._id !== action.payload)
             }
-        
+        case ADD_CAKES_REQUEST:
+            return {
+                loading: true
+            }
+        case ADD_CAKES_SUCCESS:
+            return {
+                loading: true,
+                cakes: action.payload
+            }
+        case ADD_CAKES_FAILURE:
+            return {
+                loading: false,
+                error: action.payload
+            }
         default: return state
     }
 }

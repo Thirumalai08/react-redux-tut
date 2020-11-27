@@ -1,7 +1,7 @@
 import Axios from 'axios'
-import {FETCH_ICECREAMS_REQUEST,FETCH_ICECREAMS_SUCCESS,FETCH_ICECREAMS_FAILURE,DELETE_ICECREAMS} from './icecreamTypes'
+import {FETCH_ICECREAMS_REQUEST,FETCH_ICECREAMS_SUCCESS,FETCH_ICECREAMS_FAILURE,DELETE_ICECREAMS, ADD_ICECREAMS_REQUEST, ADD_ICECREAMS_SUCCESS, ADD_ICECREAMS_FAILURE} from './icecreamTypes'
 
-const URL = 'https://crudcrud.com/api/574f3830664541319380e22106c25dfe/icecreams'
+const URL = 'https://crudcrud.com/api/f9fac7ff8c2b4b7f939daae8fa79b606/icecreams'
 
 export const fetchIcecreamsRequest = () => {
     return {
@@ -27,6 +27,27 @@ export const deleteIcecreamsSuccess = (icecream) => {
     return {
         type:DELETE_ICECREAMS,
         payload: icecream._id
+    }
+}
+
+export const addIcecreamsRequest = (name,price,flavor) => {
+    return {
+        type: ADD_ICECREAMS_REQUEST,
+        payload: {name,price,flavor}
+    }
+}
+
+export const addIcecreamsSuccess = (data) => {
+    return {
+        type: ADD_ICECREAMS_SUCCESS,
+        payload: data
+    }
+}
+
+export const addIcecreamsFailure = (error) => {
+    return {
+        type: ADD_ICECREAMS_FAILURE,
+        payload: error
     }
 }
 
@@ -56,5 +77,18 @@ export const deleteIcecreams = (icecream) => {
         .catch(err=>{
             console.log(err)
         })
+    }
+}
+
+export const registerIcecreams = (name,price,flavor) => {
+    return async (dispatch) => {
+        dispatch(addIcecreamsRequest(name,price,flavor))
+        try {
+            const {data} = await Axios.post(`${URL}`,{name,price,flavor})
+            dispatch(addIcecreamsSuccess(data)) 
+        } catch(error) {
+            const err = error.message
+            dispatch(addIcecreamsFailure(err))
+        }
     }
 }
