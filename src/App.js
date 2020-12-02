@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import Cakes from './components/Cakes/Cakes'
-import {getCakes} from './actions/cakes'
-import AddCake from './components/Cakes/AddCake'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
+import Home from './Pages/Home'
+import HomeCake from './Pages/HomeCake'
+import HomeIcecream from './Pages/HomeIcecream'
 
 function App(){
-    const [currentId,setCurrentId] = useState(null)
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(getCakes())
-    },[currentId,dispatch])
     return(
         <div>
-            <AddCake currentId={currentId} setCurrentId={setCurrentId} />
-            <Cakes setCurrentId={setCurrentId} />
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/cake" component={HomeCake} />
+                <Route path="/icecream" component={HomeIcecream} />
+            </Switch>
         </div>
     )
 }
