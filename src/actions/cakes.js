@@ -1,11 +1,12 @@
-import * as api from '../Api'
+import { getSuggestedQuery } from '@testing-library/react'
+import * as api from '../Api'// import your data named its as u like
 
 export const getCakes = () => async(dispatch) => {
     try {
         const {data} = await api.fetchCakes()
         dispatch({
-            type: 'FETCH_ALL',
-            payload: data
+            type: 'FETCH_ALL', // u receive data here 
+            payload: data //u dispatch all the data from here
         })
     } catch(err) {
         console.log(err)

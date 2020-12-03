@@ -1,7 +1,7 @@
 export default (cakes=[],action) => {
     switch(action.type) {
         case 'FETCH_ALL':
-            return action.payload
+            return action.payload // u gill get all 
         case 'CREATE':
             return [...cakes,action.payload]
         case 'DELETE':

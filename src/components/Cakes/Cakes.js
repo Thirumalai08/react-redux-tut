@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Cake from './Cake/Cake'
 
 function Cakes({setCurrentId}){
-    const cakes = useSelector((state)=>state.cake)
+    const cakes = useSelector((state)=>state.nambi)
     console.log(cakes)
     return(
         !cakes.length ? <h2>Loading...</h2> : (
